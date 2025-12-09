@@ -80,7 +80,6 @@ async function viewRecipe(id) {
     document.getElementById("recipeView").classList.remove("hidden");
 }
 
-
 // STEP 4: LIVE SEARCH
 document.getElementById("searchBar").addEventListener("keyup", function () {
     const text = this.value.trim();
@@ -91,4 +90,19 @@ document.getElementById("searchBar").addEventListener("keyup", function () {
         container.innerHTML = "";
     }
 });
+
+
+
+// LOAD DEFAULT RECIPES WHEN WEBSITE OPENS
+async function loadDefaultRecipes() {
+    const res = await fetch("https://www.themealdb.com/api/json/v1/1/search.php?s=");
+    const data = await res.json();
+
+    // show only first 6 recipes
+    displayRecipes(data.meals.slice(0, 6));
+}
+
+// Load automatically
+loadDefaultRecipes();
+
 
